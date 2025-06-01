@@ -1,9 +1,44 @@
 var http = require('http');
-var express = require('express')
+var express = require('express');
+var propertiesReader = require("properties-reader");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+var path = require('path');
+const { json } = require('stream/consumers');
 
-var app = express()
+var app = express();
+app.use(express.json());
+let propertiesPath = path.resolve(__dirname, "conf/db.properties");
+let properties = propertiesReader(propertiesPath);
+
+// setting up connection to MongoDB
+let dbPprefix = properties.get("db.prefix");
+let dbUsername = encodeURIComponent(properties.get("db.user"));
+let dbPwd = encodeURIComponent(properties.get("db.pwd"));
+let dbName = properties.get("db.dbName");
+let dbUrl = properties.get("db.dbUrl");
+let dbParams = properties.get("db.params");
+const uri = dbPprefix + dbUsername + ":" + dbPwd + dbUrl + dbParams;
+const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+let db = client.db(dbName);
+
+
+app.param('collectionName', function(req, res, next, collectionName) {
+    req.collection = db.collection(collectionName);
+    next();
+})
+
+app.get('/collections/:collectionName', async function(req, res, next) {
+    const query = JSON.parse('{}')
+    var patients = await dbSearch(query, req.collection)
+    res.json(patients)
+});
 
 var server = http.createServer(app);
 server.listen(3000, () => {
-    console.log("Server listening on port 3000!")
+    console.log("Server listening on port 3000!");
 })
+
+async function dbSearch(query, collection) {
+    const results = await collection.find(query).toArray();
+    return results;
+}
