@@ -1,0 +1,27 @@
+header {
+    display: flex;
+    justify-content: space-around;
+    background-color: grey;
+    height: 50px;
+    align-items: center;
+}
+
+.patientSearch {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.patientSearch > div > img {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+}
+
+.patientSearch > div {
+    display: flex;
+    align-items: center;
+}
+
