@@ -1,20 +1,30 @@
 import '../css/homePage.css'
 import { useState } from 'react'
+import PatientSearched from '../components/PatientSearched'
 export default function HomePage() {
     const [ searchBoxValue, setSearchBoxValue ] = useState("")
+    const [ allPatientSearched, setAllPatientSearched ] = useState([])
+    let patientElements = allPatientSearched.map((patient) => {
+        return <PatientSearched 
+                    id={patient.patientID} 
+                    key={patient.patientID}
+                    name={patient.name}
+                    age={patient.age}
+                    gender={patient.gender}
+                    dateOfBirth={patient.dateOfBirth}
+                />
+    })
 
     function handleChange(event) {
-        setSearchBoxValue(String(event.target.value))
+        setSearchBoxValue(event.target.value)
     }
 
     async function search() {
-        console.log(searchBoxValue)
         let query = {"name" : searchBoxValue}
-        console.log(query)
         query = encodeURIComponent(JSON.stringify(query))
         const response = await fetch(`http://localhost:5000/getPatientData/patients/${query}`);
         let patientSearched = await response.json();
-        console.log(patientSearched);
+        setAllPatientSearched(patientSearched);
     }
 
     return(
@@ -31,9 +41,11 @@ export default function HomePage() {
                 <input type='text' onChange={handleChange}></input>
                 <button onClick={search}>Search</button>
             </div>
-            <div className="searchResults">
 
-            </div>
+            {patientElements.length > 0 ?
+            <div className="searchResults">
+                {patientElements}
+            </div> : <div>No records</div>}
         </>
     )
 }
