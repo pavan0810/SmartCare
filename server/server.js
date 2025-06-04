@@ -1,12 +1,15 @@
 var http = require('http');
 var express = require('express');
 var propertiesReader = require("properties-reader");
+var cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 var path = require('path');
 const { json } = require('stream/consumers');
+const { error } = require('console');
 
 var app = express();
 app.use(express.json());
+app.use(cors());
 let propertiesPath = path.resolve(__dirname, "conf/db.properties");
 let properties = propertiesReader(propertiesPath);
 
@@ -27,15 +30,25 @@ app.param('collectionName', function(req, res, next, collectionName) {
     next();
 })
 
-app.get('/collections/:collectionName', async function(req, res, next) {
-    const query = JSON.parse('{}')
-    var patients = await dbSearch(query, req.collection)
-    res.json(patients)
+app.get('/collections/:collectionName', async function(req, res) {
+    const query = JSON.parse('{}');
+    var patients = await dbSearch(query, req.collection);
+    res.json(patients);
+});
+
+app.get('/getPatientData/:collectionName/:query', async function(req, res) {
+    try {
+        const query = JSON.parse(decodeURIComponent(req.params.query));
+        var patients = await dbSearch(query, req.collection);
+        res.json(patients);
+    } catch(err) {
+        console.error(error);
+    }
 });
 
 var server = http.createServer(app);
-server.listen(3000, () => {
-    console.log("Server listening on port 3000!");
+server.listen(5000, () => {
+    console.log("Server listening on port 5000!");
 })
 
 async function dbSearch(query, collection) {
