@@ -1,17 +1,14 @@
 import '../css/homePage.css'
 import { useState } from 'react'
 import PatientSearched from '../components/PatientSearched'
-export default function HomePage() {
+export default function HomePage(props) {
     const [ searchBoxValue, setSearchBoxValue ] = useState("")
     const [ allPatientSearched, setAllPatientSearched ] = useState([])
     let patientElements = allPatientSearched.map((patient) => {
         return <PatientSearched 
-                    id={patient.patientID} 
+                    patient={patient}
                     key={patient.patientID}
-                    name={patient.name}
-                    age={patient.age}
-                    gender={patient.gender}
-                    dateOfBirth={patient.dateOfBirth}
+                    setPatient={props.setPatient}
                 />
     })
 
