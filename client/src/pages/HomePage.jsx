@@ -26,7 +26,7 @@ export default function HomePage(props) {
 
     return(
         <>
-            <header>
+            <header className="homePageHeader">
                 <span>View Appointments</span>
                 <button>Sign Out</button>
             </header>
