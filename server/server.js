@@ -6,10 +6,24 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 var path = require('path');
 const { json } = require('stream/consumers');
 const { error } = require('console');
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'patientFiles/')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage: storage })
 
 var app = express();
 app.use(express.json());
 app.use(cors());
+app.use("/patientFiles", express.static("patientFiles"))
 let propertiesPath = path.resolve(__dirname, "conf/db.properties");
 let properties = propertiesReader(propertiesPath);
 
@@ -44,6 +58,11 @@ app.get('/getPatientData/:collectionName/:query', async function(req, res) {
     } catch(err) {
         console.error(error);
     }
+});
+
+app.put('/uploadFile', upload.single('file'), function(req, res) {
+    console.log(req.file)
+    res.json("File uploaded successfully!")
 });
 
 var server = http.createServer(app);

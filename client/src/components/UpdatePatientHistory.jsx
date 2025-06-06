@@ -1,11 +1,16 @@
 import { useState } from 'react'
 export default function UpdatePatientHistory() {
-    const [ file, setFile ] = useState("")
+    const [ file, setFile ] = useState("");
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData();
         formData.append('file', file);
+        const response = await fetch('http://localhost:5000/uploadFile', {
+            method: 'PUT',
+            body: formData
+        });
+        console.log(response);
     }
 
     function handleChange(event) {
