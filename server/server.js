@@ -57,12 +57,19 @@ app.get('/getPatientData/:collectionName/:query', async function(req, res) {
         res.json(patients);
     } catch(err) {
         console.error(error);
+        res.json({"message" : "Error when getting data"})
     }
 });
 
-app.put('/uploadFile', upload.single('file'), function(req, res) {
-    console.log(req.file)
-    res.json("File uploaded successfully!")
+app.post('/uploadFile/:collectionName', upload.single('file'), async function(req, res) {
+    try {
+        const result = await req.collection.insertOne({"file" : req.file.filename});
+        console.log(result);
+        res.json({"message" : "file uploaded!"})
+    } catch(err) {
+        console.error(err);
+        res.json({"message" : "Error when uploading file!"})
+    }
 });
 
 var server = http.createServer(app);

@@ -6,11 +6,14 @@ export default function UpdatePatientHistory() {
         event.preventDefault();
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch('http://localhost:5000/uploadFile', {
-            method: 'PUT',
+        const response = await fetch('http://localhost:5000/uploadFile/laboratoryReports', {
+            method: 'POST',
             body: formData
         });
-        console.log(response);
+
+        const uploadResponse = await response.json();
+        console.log(uploadResponse);
+        console.log("hello")
     }
 
     function handleChange(event) {
