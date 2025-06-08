@@ -1,6 +1,11 @@
 import '../css/medicalHistoryPage.css'
 import { useState } from 'react'
 import UpdatePatientHistory from '../components/UpdatePatientHistory'
+import PatientHistory from '../components/PatientHistory'
+import MedicationHistory from '../components/MedicationHistory'
+import RadiologyHistory from '../components/RadiologyHistory'
+import LaboratoryHistory from '../components/LaboratoryHistory'
+
 export default function MedicalHistoryPage(props) {
     const [ navbarOption, setNavbarOption ] = useState('patientHistory')
     return(
@@ -27,10 +32,10 @@ export default function MedicalHistoryPage(props) {
                         <p>Gender: {props.patient.gender}</p>
                     </div>
                     <div className="records">
-                        {navbarOption === 'patientHistory' && <p>Patient History</p>}
-                        {navbarOption === 'medicationHistory' && <p>Medication History</p>}
-                        {navbarOption === 'radiologyHistory' && <p>Radiology History</p>}
-                        {navbarOption === 'laboratoryHistory' && <p>Laboratory History</p>}
+                        {navbarOption === 'patientHistory' && <PatientHistory patient={props.patient}/>}
+                        {navbarOption === 'medicationHistory' && <MedicationHistory patient={props.patient}/>}
+                        {navbarOption === 'radiologyHistory' && <RadiologyHistory patient={props.patient}/>}
+                        {navbarOption === 'laboratoryHistory' && <LaboratoryHistory patient={props.patient}/>}
                         {navbarOption === 'updatePatientHistory' && <UpdatePatientHistory />}
                     </div> 
                 </div>
