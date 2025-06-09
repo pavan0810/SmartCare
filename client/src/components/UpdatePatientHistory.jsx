@@ -1,32 +1,22 @@
 import { useState } from 'react'
-export default function UpdatePatientHistory() {
-    const [ file, setFile ] = useState("");
+import UploadPatientHistory from './UploadPatientHistory';
+import UploadPrescription from './UploadPrescription';
+import UploadReport from './UploadReport';
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('file', file);
-        const response = await fetch('http://localhost:5000/uploadFile/laboratoryReports', {
-            method: 'POST',
-            body: formData
-        });
-
-        const uploadResponse = await response.json();
-        console.log(uploadResponse);
-        console.log("hello")
-    }
-
-    function handleChange(event) {
-        setFile(event.target.files[0]);
-    }
-
+export default function UpdatePatientHistory(props) {
+    const [ navbarOption, setNavbarOption ] = useState('uploadPatientHistory');
     return(
         <>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="testFile">Select a File:</label>
-                <input onChange={handleChange} type="file" accept="application/pdf" id="testFile" name="testFile"></input>
-                <button>Upload File</button>
-            </form>
+            <nav>
+                <button onClick={() => setNavbarOption('uploadPatientHistory')}>Upload New History</button>
+                <button onClick={() => setNavbarOption('uploadPrescriptions')}>Upload Prescriptions</button>
+                <button onClick={() => setNavbarOption('uploadReport')}>Upload Report</button>
+            </nav>
+            <div className="records">
+                {navbarOption === 'uploadPatientHistory' && <UploadPatientHistory patient={props.patient}/>}
+                {navbarOption === 'uploadPrescriptions' && <UploadPrescription patient={props.patient}/>}
+                {navbarOption === 'uploadReport' && <UploadReport patient={props.patient}/>}
+            </div>
         </>
     )
 }

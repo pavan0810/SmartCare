@@ -18,7 +18,7 @@ export default function Calendar() {
     let startDate = new Date(2025,4,29)
     let endDate = new Date(2025, 11, 31)
     for(let date = new Date(startDate); date <= endDate;date.setDate(date.getDate() + 1)) {
-        appointments[formatDate(date)] = new Array(5)
+        appointments[formatDate(date)] = new Array(5);
     }
     console.log(appointments)
     let date = new Date(2025, 0, 20)

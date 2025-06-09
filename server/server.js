@@ -63,12 +63,28 @@ app.get('/getPatientData/:collectionName/:query', async function(req, res) {
 
 app.post('/uploadFile/:collectionName', upload.single('file'), async function(req, res) {
     try {
-        const result = await req.collection.insertOne({"file" : req.file.filename});
+        let date = req.body.date;
+        let patientID = JSON.parse(req.body.patient).patientID;
+        const result = await req.collection.insertOne(
+            {"patientID" : patientID, "date": date, "file" : req.file.filename}
+        );
         console.log(result);
         res.json({"message" : "file uploaded!"})
     } catch(err) {
         console.error(err);
         res.json({"message" : "Error when uploading file!"})
+    }
+});
+
+app.post('/uploadNotes/:collectionName', async function(req, res) {
+    try{
+        var patientData = req.body;
+        const result = req.collection.insertOne(patientData);
+        console.log(result);
+        res.json({"message" : "Document successfully uploaded!"})
+    } catch(err) {
+        console.error(err);
+        res.json({"message" : "Error when uploading document"})
     }
 });
 
