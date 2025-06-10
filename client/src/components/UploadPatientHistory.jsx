@@ -8,7 +8,7 @@ export default function UploadPatientHistory({patient}) {
     async function handleSubmit(event) {
         event.preventDefault();
         let date = formatDate(new Date());
-        let patientData = {"patientID" : patient.patientID, "date" : date, note: notes};
+        let patientData = {"patientID" : patient.patientID, "date" : date, "note": notes};
         const response = await fetch('http://localhost:5000/uploadNotes/patientHistory', {
             method: 'POST',
             headers: {

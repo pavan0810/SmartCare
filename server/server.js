@@ -79,12 +79,24 @@ app.post('/uploadFile/:collectionName', upload.single('file'), async function(re
 app.post('/uploadNotes/:collectionName', async function(req, res) {
     try{
         var patientData = req.body;
-        const result = req.collection.insertOne(patientData);
+        const result = await req.collection.insertOne(patientData);
         console.log(result);
         res.json({"message" : "Document successfully uploaded!"})
     } catch(err) {
         console.error(err);
         res.json({"message" : "Error when uploading document"})
+    }
+});
+
+app.post('/uploadPrescription/:collectionName', async function(req, res) {
+    try{
+        var prescription = req.body;
+        const result = await req.collection.insertOne(prescription);
+        console.log(result);
+        res.json({"message" : "Prescription uploaded successfully!"});
+    } catch(err) {
+        console.error(err);
+        res.json({"message" : "Failed to upload prescription"});
     }
 });
 
