@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import '../css/uploadPrescription.css'
 export default function UploadPrescription({patient}) {
     const [ prescription, setPrescription ] = useState([]);
     const [ name, setName ] = useState('');
@@ -52,8 +53,8 @@ export default function UploadPrescription({patient}) {
     }
 
     return(
-        <div>
-            <div>
+        <div className="uploadPrescription">
+            <div className="prescription">
                 <table>
                     <thead>
                         <tr>

@@ -1,0 +1,28 @@
+.uploadHistory{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.uploadHistory > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.uploadHistory > form > textarea {
+    margin: 10px 0px 10px 0px;
+    width: 80%;
+    height: 300px;
+    
+}
+
+.uploadHistory > form > label {
+    margin: 10px 0px 10px 0px;
+}
+
+.uploadHistory > form > button {
+    margin: 10px 0px 10px 0px;
+}

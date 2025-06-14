@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import '../css/uploadPatientHistory.css'
 export default function UploadPatientHistory({patient}) {
     const [ notes, setNotes ] = useState("");
     function formatDate(date) {
@@ -24,9 +25,9 @@ export default function UploadPatientHistory({patient}) {
     }
 
     return(
-        <div>
+        <div className="uploadHistory">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="notes">Notes:</label>
+                <label htmlFor="notes">Notes</label>
                 <textarea onChange={handleNoteChange} type="text" id="notes" name="notes" required></textarea>
                 <button>Upload</button>
             </form>

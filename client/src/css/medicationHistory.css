@@ -1,0 +1,14 @@
+.medicationHistory > p {
+    text-align: center;
+}
+
+.medicationHistory > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.medicationHistory {
+    width: 100%;
+}

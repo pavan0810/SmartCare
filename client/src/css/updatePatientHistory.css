@@ -1,0 +1,13 @@
+.updateHistory {
+    width: 100%;
+}
+
+.updateHistoryNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.updateHistoryDisplay {
+    margin-top: 20px;
+}

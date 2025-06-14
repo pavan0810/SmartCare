@@ -1,0 +1,14 @@
+.laboratoryHistory > p {
+    text-align: center;
+}
+
+.laboratoryHistory > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.laboratoryHistory {
+    width: 100%;
+}

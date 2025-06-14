@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import MedicationData from './MedicationData';
+import '../css/medicationHistory.css'
 
 export default function MedicationHistory({patient}) {
     const [ patientData, setPatientData ] = useState([]);
@@ -21,7 +22,7 @@ export default function MedicationHistory({patient}) {
 
     return(
         // display mongodb history here
-        <div>
+        <div className="medicationHistory">
             <p>Medication History Page</p>
             <div>{medicalHistoryElements}</div>
         </div>

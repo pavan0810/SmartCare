@@ -1,0 +1,33 @@
+.uploadPrescription {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.prescription {
+    margin: 10px 0px 10px 0px;
+}
+
+.uploadPrescription > form{
+    margin: 10px 0px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    width: 70%;
+    padding: 10px 10px 10px 10px;
+}
+
+.uploadPrescription > button{
+    margin: 10px 0px 10px 0px;
+}
+
+.uploadPrescription > form > input {
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.uploadPrescription > form > button {
+    width: 30%;
+}

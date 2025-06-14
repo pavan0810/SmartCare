@@ -1,0 +1,14 @@
+.radiologyHistory {
+    width : 100%;
+}
+
+.radiologyHistory > p {
+    text-align: center;
+}
+
+.radiologyHistory > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

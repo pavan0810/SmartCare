@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import '../css/uploadReport.css'
 export default function UploadReport({patient}) {
     const [ file, setFile ] = useState("");
     const [ option, setOption ] = useState('radiology')
@@ -38,23 +39,24 @@ export default function UploadReport({patient}) {
     }
 
     return(
-        <>
+        <div className="uploadReport">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="testFile">Select a File:</label>
+                <label className="fileInput" htmlFor="testFile">Select a File:</label>
                 <input onChange={handleChange} type="file" accept="application/pdf" 
                 id="testFile" name="testFile" required></input>
-                <label>
+                <p>Select file type:</p>
+                <label className="reportType">
                     <input type="radio" name="reportType" value="radiology"  
                     checked={option === 'radiology'} onChange={handleOptionChange}/>
                     Radiology
                 </label>
-                <label>
+                <label className="reportType">
                     <input type="radio" name="reportType" value="laboratory" 
                     checked={option === 'laboratory'} onChange={handleOptionChange} />
                     Laboratory
                 </label>
                 <button>Upload File</button>
             </form>
-        </>
+        </div>
     )
 }

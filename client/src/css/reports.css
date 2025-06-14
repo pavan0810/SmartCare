@@ -1,0 +1,11 @@
+.reportElement {
+    padding: 10px 10px 10px 10px;
+    margin: 10px 0px 10px 0px;
+    width: 70%;
+    background-color: whitesmoke;
+    border: 2px solid black;
+}
+
+.reportElement > button {
+    margin-left: 85%;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Reports from './Reports';
+import '../css/laboratoryHistory.css'
 
 export default function LaboratoryHistory({patient}) {
 
@@ -21,7 +22,7 @@ export default function LaboratoryHistory({patient}) {
     });
 
     return(       
-        <div>
+        <div className="laboratoryHistory">
             <p>Laboratory History Page</p>
             <div>
                 {labResultElements}

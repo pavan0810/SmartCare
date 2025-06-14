@@ -1,0 +1,17 @@
+.uploadReport > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fileInput {
+    margin-top: 10px;
+}
+
+.reportType {
+    margin: 10px 0px 10px 0px;
+}
+
+.uploadReport > form > button {
+    margin: 10px 0px 10px 0px;
+}

@@ -1,0 +1,14 @@
+.patientHistoryRecords {
+    width: 100%;
+}
+
+.patientHistoryRecords > p {
+    text-align: center;
+}
+
+.patientHistoryRecords > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

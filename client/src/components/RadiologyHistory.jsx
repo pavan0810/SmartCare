@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Reports from './Reports';
+import '../css/radiologyHistory.css'
 export default function RadiologyHistory({patient}) {
     const [ patientData, setPatientData ] = useState([]);
 
@@ -21,7 +22,7 @@ export default function RadiologyHistory({patient}) {
     });
 
     return(
-        <div>
+        <div className="radiologyHistory">
             <p>Radiology History Page</p>
             <div>
                 {radiologyResultElements}

@@ -24,3 +24,10 @@
 .medicalHistoryNav > nav > button{
     margin: 20px 0px 20px 0px;
 }
+
+.records {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
