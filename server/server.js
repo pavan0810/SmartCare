@@ -1,4 +1,6 @@
 var http = require('http');
+var winkNLP = require('wink-nlp');
+var model = require( 'wink-eng-lite-web-model' );
 var express = require('express');
 var propertiesReader = require("properties-reader");
 var cors = require('cors');
@@ -6,7 +8,12 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 var path = require('path');
 const { json } = require('stream/consumers');
 const { error } = require('console');
-const multer = require('multer')
+const multer = require('multer');
+var symptoms = ['chest pain', 'fever', 'weight loss', 'night sweat', 'shortness of breath', 'dry cough', 'burning pee', 'stomach paining'];
+// setting up wink-nlp for text extraction
+const nlp = winkNLP(model);
+const its = nlp.its;
+const as = nlp.as;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -98,6 +105,20 @@ app.post('/uploadPrescription/:collectionName', async function(req, res) {
         console.error(err);
         res.json({"message" : "Failed to upload prescription"});
     }
+});
+
+app.get('/testNLP', function(req, res) {
+    var notes = " Patient reports a dry cough lasting for over 10 days. She experiences mild shortness of breath on exertion but denies chest pain. No history of fever, night sweats, or weight loss. She reports mild fatigue and occasional sore throat paining.";
+    const doc = nlp.readDoc(notes);
+    var notesLemma = doc.tokens().filter(t => t.out(its.type) === 'word').out(its.lemma);
+    notesLemma = notesLemma.join(' ');
+    var result = symptoms.map((symptom) => {
+        var symptomDoc = nlp.readDoc(symptom);
+        var symptomsLemma = symptomDoc.tokens().out(its.lemma).join(' ');
+        return notesLemma.includes(symptomsLemma) ? 1 : 0;
+    });
+    console.log(result);
+    res.json("Hello");
 });
 
 var server = http.createServer(app);
