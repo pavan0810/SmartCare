@@ -72,8 +72,9 @@ app.post('/uploadFile/:collectionName', upload.single('file'), async function(re
     try {
         let date = req.body.date;
         let patientID = JSON.parse(req.body.patient).patientID;
+        let filePath = `http://localhost:5000/patientFiles/${req.file.filename}`
         const result = await req.collection.insertOne(
-            {"patientID" : patientID, "date": date, "file" : req.file.filename}
+            {"patientID" : patientID, "date": date, "file" : filePath}
         );
         console.log(result);
         res.json({"message" : "file uploaded!"})

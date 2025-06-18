@@ -31,6 +31,7 @@ export default function UploadPatientHistory({patient}) {
                 <textarea onChange={handleNoteChange} type="text" id="notes" name="notes" required></textarea>
                 <button>Upload</button>
             </form>
+            <button>Book appointment</button>
         </div>
     )
 }
