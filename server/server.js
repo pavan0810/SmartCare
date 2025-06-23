@@ -137,6 +137,27 @@ app.post('/testNLP', async function(req, res) {
     }
 });
 
+app.post('/signin/:collectionName', async function(req, res) {
+    try{
+        const password = req.body.password;
+        const username = req.body.username;
+        const query = {"name" : username};
+        let result = await dbSearch(query, req.collection);
+        if(result.length == 0) {
+            res.json({"login" : false, "message" : "user not found"});
+        } else {
+            if(password == result[0].password) {
+                res.json({"login" : true, "message" : "Successful login"});
+            } else {
+                res.json({"login" : false, "message" : "Wrong password"})
+            }
+        }
+    } catch(err) {
+        console.error(err);
+        res.json(err);
+    }
+});
+
 var server = http.createServer(app);
 server.listen(5000, () => {
     console.log("Server listening on port 5000!");

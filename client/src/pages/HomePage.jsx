@@ -27,7 +27,7 @@ export default function HomePage(props) {
     return(
         <>
             <header className="homePageHeader">
-                <span>View Appointments</span>
+                <button>View Appointments</button>
                 <button>Sign Out</button>
             </header>
             <div className='patientSearch'>

@@ -2,6 +2,7 @@ import './App.css';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom' 
 import HomePage from './pages/HomePage'
 import MedicalHistoryPage from './pages/MedicalHistoryPage';
+import LoginPage from './pages/LoginPage';
 import { useState } from 'react'
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<HomePage setPatient={setPatient}/>}/>
+        <Route path='/' element={<LoginPage />}/>
+        <Route path='/homePage' element={<HomePage setPatient={setPatient}/>}/>
         <Route path='/medicalHistory' element={<MedicalHistoryPage patient={currentPatient}/>}/>
       </Routes>
     </Router>
