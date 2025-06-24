@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import '../css/uploadPatientHistory.css'
-export default function UploadPatientHistory({patient}) {
+export default function UploadPatientHistory({patient, updateAppointmentList}) {
     const [ notes, setNotes ] = useState("");
     function formatDate(date) {
         return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
@@ -24,6 +24,21 @@ export default function UploadPatientHistory({patient}) {
         setNotes(event.target.value);
     }
 
+    async function bookAppointment() {
+        // get patient symptoms
+        const response = await fetch("http://localhost:5000/getPatientSeverity", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"notes": notes})
+        });
+        let patientSeverity = await response.json();
+        console.log(patientSeverity);
+        let appointment = {patient: patient, severity: patientSeverity.severity}
+        updateAppointmentList(appointment);
+    }
+
     return(
         <div className="uploadHistory">
             <form onSubmit={handleSubmit}>
@@ -31,7 +46,7 @@ export default function UploadPatientHistory({patient}) {
                 <textarea onChange={handleNoteChange} type="text" id="notes" name="notes" required></textarea>
                 <button>Upload</button>
             </form>
-            <button>Book appointment</button>
+            <button onClick={bookAppointment}>Book appointment</button>
         </div>
     )
 }

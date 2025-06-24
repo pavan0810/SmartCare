@@ -14,7 +14,7 @@ export default function UpdatePatientHistory(props) {
                 <button onClick={() => setNavbarOption('uploadReport')}>Upload Report</button>
             </nav>
             <div className="updateHistoryDisplay">
-                {navbarOption === 'uploadPatientHistory' && <UploadPatientHistory patient={props.patient}/>}
+                {navbarOption === 'uploadPatientHistory' && <UploadPatientHistory patient={props.patient} updateAppointmentList={props.updateAppointmentList}/>}
                 {navbarOption === 'uploadPrescriptions' && <UploadPrescription patient={props.patient}/>}
                 {navbarOption === 'uploadReport' && <UploadReport patient={props.patient}/>}
             </div>

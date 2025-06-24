@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-export default function LoginPage() {
+export default function LoginPage({ setUser }) {
     const navigate  = useNavigate();
     const [ username , setUsername] = useState('');
     const [ password , setPassword] = useState('');
@@ -29,6 +29,7 @@ export default function LoginPage() {
         const result = await response.json();
         if(result.login === true) {
             alert(result.message);
+            setUser(result.user);
             navigate('/homePage');
         } else {
             alert(result.message);

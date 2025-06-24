@@ -36,7 +36,7 @@ export default function MedicalHistoryPage(props) {
                         {navbarOption === 'medicationHistory' && <MedicationHistory patient={props.patient}/>}
                         {navbarOption === 'radiologyHistory' && <RadiologyHistory patient={props.patient}/>}
                         {navbarOption === 'laboratoryHistory' && <LaboratoryHistory patient={props.patient}/>}
-                        {navbarOption === 'updatePatientHistory' && <UpdatePatientHistory patient={props.patient}/>}
+                        {navbarOption === 'updatePatientHistory' && <UpdatePatientHistory patient={props.patient} updateAppointmentList={props.updateAppointmentList}/>}
                     </div> 
                 </div>
             </div>

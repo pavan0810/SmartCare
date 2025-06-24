@@ -3,14 +3,14 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
-export default function Calendar() {
-    // get appointments from db of currently logged in doctor
-    let appointments = {}
-    
-    let allAppointments = [
-        { title: 'event 1', date: '2025-04-01' },
-        { title: 'event 2', date: '2025-04-02' }
-    ]
+export default function Calendar({ user }) {
+    let allAppointments = user.appointments;
+    const events = allAppointments.map((appointment) => {
+        return appointment.events;
+    });
+
+    const appointments = events.flat();
+    console.log(appointments);
 
     // function to format dates
     function formatDate(date) {
@@ -22,15 +22,14 @@ export default function Calendar() {
     for(let date = new Date(startDate); date <= endDate;date.setDate(date.getDate() + 1)) {
         appointments[formatDate(date)] = new Array(5);
     }
-    console.log(appointments)
-    let date = new Date(2025, 0, 20)
-    console.log(formatDate(date))
 
-    
     return(
-        <Fullcalendar 
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView={'dayGridMonth'}
-        events={allAppointments}/>        
+        <>
+            <button>Book all appointments</button>
+            <Fullcalendar 
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView={'timeGridWeek'}
+            events={appointments}/>    
+        </>    
     )
 }

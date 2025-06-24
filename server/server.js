@@ -108,7 +108,7 @@ app.post('/uploadPrescription/:collectionName', async function(req, res) {
     }
 });
 
-app.post('/testNLP', async function(req, res) {
+app.post('/getPatientSeverity', async function(req, res) {
     try {
         const { notes } = req.body;
         console.log(notes);
@@ -147,7 +147,7 @@ app.post('/signin/:collectionName', async function(req, res) {
             res.json({"login" : false, "message" : "user not found"});
         } else {
             if(password == result[0].password) {
-                res.json({"login" : true, "message" : "Successful login"});
+                res.json({"login" : true, "message" : "Successful login", "user" : result[0]});
             } else {
                 res.json({"login" : false, "message" : "Wrong password"})
             }

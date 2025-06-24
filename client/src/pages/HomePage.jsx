@@ -1,7 +1,10 @@
 import '../css/homePage.css'
 import { useState } from 'react'
 import PatientSearched from '../components/PatientSearched'
+import { useNavigate } from "react-router-dom"
+
 export default function HomePage(props) {
+    const navigate  = useNavigate();
     const [ searchBoxValue, setSearchBoxValue ] = useState("")
     const [ allPatientSearched, setAllPatientSearched ] = useState([])
     let patientElements = allPatientSearched.map((patient) => {
@@ -24,10 +27,14 @@ export default function HomePage(props) {
         setAllPatientSearched(patientSearched);
     }
 
+    function handleViewAppointmentClick() {
+        navigate('/appointment')
+    }
+
     return(
         <>
             <header className="homePageHeader">
-                <button>View Appointments</button>
+                <button onClick={handleViewAppointmentClick}>View Appointments</button>
                 <button>Sign Out</button>
             </header>
             <div className='patientSearch'>
