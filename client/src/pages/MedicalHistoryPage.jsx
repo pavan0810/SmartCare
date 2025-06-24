@@ -1,17 +1,24 @@
 import '../css/medicalHistoryPage.css'
-import { useState } from 'react'
+import { useState} from 'react'
 import UpdatePatientHistory from '../components/UpdatePatientHistory'
 import PatientHistory from '../components/PatientHistory'
 import MedicationHistory from '../components/MedicationHistory'
 import RadiologyHistory from '../components/RadiologyHistory'
 import LaboratoryHistory from '../components/LaboratoryHistory'
+import { useNavigate } from 'react-router-dom'
 
 export default function MedicalHistoryPage(props) {
+    const navigate = useNavigate();
     const [ navbarOption, setNavbarOption ] = useState('patientHistory')
+    
+    function backButtonClick() {
+        navigate('/homePage');
+    }
+
     return(
         <>
             <header>
-                <button>Back</button>
+                <button onClick={backButtonClick}>Back</button>
                 <p>SmartCare</p>
                 <button>Sign out</button>
             </header>
