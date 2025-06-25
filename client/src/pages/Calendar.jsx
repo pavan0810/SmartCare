@@ -4,6 +4,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import emailjs from '@emailjs/browser'
 
 export default function Calendar({ user, appointmentList }) {
     const [appointments, setAppointments] = useState([]);
@@ -17,25 +18,45 @@ export default function Calendar({ user, appointmentList }) {
         setAppointments(events.flat());
         // eslint-disable-next-line
     }, [])
+
+    function sendAppointmentEmail(name, dateTime, patientEmail) {
+        const [ date, time ] = dateTime.split("T");
+        const templateParams = {
+            to_email: patientEmail,
+            to_name: name,
+            date: date,
+            time: time
+        }
+
+        emailjs
+        .send('service_p6cyfms', 'template_1ze6zpb', templateParams, '_Ulwx2cxo7Nbw1ce8')
+        .then(
+          () => {
+            console.log('SUCCESS!');
+          },
+          (error) => {
+            console.log('FAILED...', error.text);
+          }
+        );
+    }
     
 
     function bookAllAppointments(){
         const priorityOrder = { H: 1, M: 2, L: 3 };
-        console.log(appointmentList)
         appointmentList.sort((a, b) => priorityOrder[a.severity] - priorityOrder[b.severity]);
-        console.log(appointmentList)
         let appointmentCopy = appointments;
         for(let i = 0; i < appointmentList.length;i++) {
             for(let j = 0; j < appointmentCopy.length; j++) {
                 if(appointmentCopy[j].title === '') {
-                    console.log("entered")
                     appointmentCopy[j].title = appointmentList[i].patient.name;
+                    sendAppointmentEmail(appointmentList[i].patient.name, appointmentCopy[j].start, 
+                        appointmentList[i].patient.email);
                     break;
                 }
             }
         }
         setAppointments(appointmentCopy);
-        console.log(appointments);
+        // fetch request to update doctor's appointment schedule
     }
 
     function handleBackClick() {
