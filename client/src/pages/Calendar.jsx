@@ -32,10 +32,10 @@ export default function Calendar({ user, appointmentList }) {
         .send('service_p6cyfms', 'template_1ze6zpb', templateParams, '_Ulwx2cxo7Nbw1ce8')
         .then(
           () => {
-            console.log('SUCCESS!');
+            alert('Appointment email sent sucessfully');
           },
           (error) => {
-            console.log('FAILED...', error.text);
+            console.log('Failed to sent appointment email' + error.text);
           }
         );
     }
@@ -56,6 +56,7 @@ export default function Calendar({ user, appointmentList }) {
             }
         }
         setAppointments(appointmentCopy);
+        alert("Appointments booked sucessfully");
         // fetch request to update doctor's appointment schedule
     }
 
