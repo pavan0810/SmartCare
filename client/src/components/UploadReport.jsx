@@ -22,7 +22,8 @@ export default function UploadReport({patient}) {
         });
 
         const uploadResponse = await response.json();
-        console.log(uploadResponse);
+        alert(uploadResponse.message);
+        event.target.reset();
     }
 
     function handleChange(event) {
