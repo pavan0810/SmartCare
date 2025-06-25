@@ -36,7 +36,7 @@ function App() {
         <Route path='/homePage' element={<HomePage setPatient={setPatient}/>}/>
         <Route path='/medicalHistory' element={<MedicalHistoryPage patient={currentPatient} user={currentUser} 
         updateAppointmentList={updateAppointmentList}/>}/>
-        <Route path='/appointment' element={<Calendar user={currentUser} appointmentList={appointmentList}/>}/>
+        <Route path='/appointment' element={<Calendar user={currentUser} appointmentList={appointmentList} updateAppointmentList={updateAppointmentList}/>}/>
       </Routes>
     </Router>
   );

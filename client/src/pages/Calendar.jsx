@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 
-export default function Calendar({ user, appointmentList }) {
+export default function Calendar({ user, appointmentList, updateAppointmentList }) {
     const [appointments, setAppointments] = useState([]);
     const navigate = useNavigate();
 
@@ -57,6 +57,7 @@ export default function Calendar({ user, appointmentList }) {
         }
         setAppointments(appointmentCopy);
         alert("Appointments booked sucessfully");
+        updateAppointmentList("");
         // fetch request to update doctor's appointment schedule
     }
 
@@ -66,7 +67,7 @@ export default function Calendar({ user, appointmentList }) {
 
     return(
         <>
-            <button onClick={bookAllAppointments}>Book all appointments</button>
+            {appointmentList.length === 0 ? <button disabled>Book all appointments</button> : <button onClick={bookAllAppointments}>Book all appointments</button>}
             <button onClick={handleBackClick}>Back</button>
             <Fullcalendar 
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

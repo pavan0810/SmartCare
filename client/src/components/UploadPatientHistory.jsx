@@ -38,6 +38,7 @@ export default function UploadPatientHistory({patient, updateAppointmentList}) {
         console.log(patientSeverity);
         let appointment = {patient: patient, severity: patientSeverity.severity}
         updateAppointmentList(appointment);
+        alert("Patient added to appointment list");
     }
 
     return(
