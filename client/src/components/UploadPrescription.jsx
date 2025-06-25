@@ -22,6 +22,7 @@ export default function UploadPrescription({patient}) {
         setPrescription((prevPrescription) => {
             return [...prevPrescription, {name: name, dosage: dosage, duration: duration}];
         })
+        event.target.reset();
     }
 
     function handleNameChange(event) {   
@@ -50,8 +51,9 @@ export default function UploadPrescription({patient}) {
             },
             body: JSON.stringify(patientData)
         });
-        console.log(await response.json())
+        const result = await response.json()
         sendPrescriptionEmail(patient.name, patient.email, prescription, date);
+        alert(result.message);
     }
 
     function sendPrescriptionEmail(name, patientEmail, prescription, date) {
@@ -66,10 +68,10 @@ export default function UploadPrescription({patient}) {
         .send('service_p6cyfms', 'template_qurjmyq', templateParams, '_Ulwx2cxo7Nbw1ce8')
         .then(
           () => {
-            console.log('SUCCESS!');
+            alert('Prescription email sent successfully');
           },
           (error) => {
-            console.log('FAILED...', error.text);
+            alert('Failed to send prescription email' + error.text);
           }
         );
     }
@@ -99,7 +101,8 @@ export default function UploadPrescription({patient}) {
                 <input type="text" id="duration" name="duration" onChange={handleDurationChange} required/>
                 <button>Add</button>
             </form>
-            <button onClick={uploadPrescription}>Upload Prescription</button>
+            {prescription.length === 0 ? <button disabled>Upload Prescription</button>: 
+            <button onClick={uploadPrescription}>Upload Prescription</button>}
         </div>
     )
 }

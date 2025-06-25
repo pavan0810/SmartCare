@@ -77,7 +77,7 @@ app.post('/uploadFile/:collectionName', upload.single('file'), async function(re
             {"patientID" : patientID, "date": date, "file" : filePath}
         );
         console.log(result);
-        res.json({"message" : "file uploaded!"})
+        res.json({"message" : "file uploaded successfully!"})
     } catch(err) {
         console.error(err);
         res.json({"message" : "Error when uploading file!"})

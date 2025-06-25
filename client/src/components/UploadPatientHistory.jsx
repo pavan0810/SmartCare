@@ -17,7 +17,8 @@ export default function UploadPatientHistory({patient, updateAppointmentList}) {
             },
             body: JSON.stringify(patientData)
         });
-        console.log(await response.json())
+        const result = await response.json();
+        alert(result.message);
     }
 
     function handleNoteChange(event) {
@@ -44,9 +45,9 @@ export default function UploadPatientHistory({patient, updateAppointmentList}) {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="notes">Notes</label>
                 <textarea onChange={handleNoteChange} type="text" id="notes" name="notes" required></textarea>
-                <button>Upload</button>
+                {notes === "" ? <button disabled>Upload</button> : <button>Upload</button>}
             </form>
-            <button onClick={bookAppointment}>Book appointment</button>
+            {notes === "" ? <button disabled>Book appointment</button>: <button onClick={bookAppointment}>Book appointment</button>}
         </div>
     )
 }
