@@ -18,7 +18,6 @@ export default function LoginPage({ setUser }) {
     }
 
     async function handleLogin() {
-        console.log(`username: ${username} and password:${password}`);
         const response = await fetch("http://localhost:5000/signin/doctors", {
             method: 'POST',
             headers: {
