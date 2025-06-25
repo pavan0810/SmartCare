@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import '../css/uploadPrescription.css'
+import emailjs from '@emailjs/browser'
 export default function UploadPrescription({patient}) {
     const [ prescription, setPrescription ] = useState([]);
     const [ name, setName ] = useState('');
@@ -50,6 +51,27 @@ export default function UploadPrescription({patient}) {
             body: JSON.stringify(patientData)
         });
         console.log(await response.json())
+        sendPrescriptionEmail(patient.name, patient.email, prescription, date);
+    }
+
+    function sendPrescriptionEmail(name, patientEmail, prescription, date) {
+        const templateParams = {
+            to_email: patientEmail,
+            to_name: name,
+            date: date,
+            medicines: prescription
+        }
+
+        emailjs
+        .send('service_p6cyfms', 'template_qurjmyq', templateParams, '_Ulwx2cxo7Nbw1ce8')
+        .then(
+          () => {
+            console.log('SUCCESS!');
+          },
+          (error) => {
+            console.log('FAILED...', error.text);
+          }
+        );
     }
 
     return(
