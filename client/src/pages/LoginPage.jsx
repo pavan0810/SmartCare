@@ -13,11 +13,8 @@ export default function LoginPage({ setUser }) {
         setPassword(event.target.value);
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event)  {
         event.preventDefault();
-    }
-
-    async function handleLogin() {
         const response = await fetch("http://localhost:5000/signin/doctors", {
             method: 'POST',
             headers: {
@@ -47,7 +44,7 @@ export default function LoginPage({ setUser }) {
                     <input onChange={handleUsernameChange} type="text" name="username" id="username" required/>
                     <label htmlFor="password">Password</label>
                     <input onChange={handlePasswordChange} type="password" name="password" id="password" required/>
-                    <button onClick={handleLogin}>Login</button>
+                    <button>Login</button>
                 </form>
             </div>
         </div>

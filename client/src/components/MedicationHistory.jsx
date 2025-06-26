@@ -16,12 +16,13 @@ export default function MedicationHistory({patient}) {
         fetchData();
     }, [patient])
 
+    // mapping patientData to form MedicationData components
     let medicalHistoryElements = patientData.map((data) => {
             return <MedicationData date={data.date} medication={data.medications}/>
     });
 
     return(
-        // display mongodb history here
+        // display of prescriptions using MedicationComponent
         <div className="medicationHistory">
             <p>Medication History Page</p>
             <div>{medicalHistoryElements}</div>

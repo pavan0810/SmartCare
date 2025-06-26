@@ -2,7 +2,6 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { useState } from 'react'
 export default function PDFViewer(props) {
-    console.log(props.filePath)
     pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.mjs',
     import.meta.url,

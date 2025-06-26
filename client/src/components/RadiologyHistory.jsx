@@ -8,8 +8,7 @@ export default function RadiologyHistory({patient}) {
     const [ currentFilePath, setCurrentFilePath ] = useState("");
 
     useEffect(function() {
-        // code to fetch patient medical history from mongoDB
-        // code to fetch patient medical history from mongoDB
+        // useEffect to fetch reports from server
         async function fetchData() {
             let query = {"patientID" : patient.patientID};
             query = encodeURIComponent(JSON.stringify(query));
@@ -35,6 +34,7 @@ export default function RadiologyHistory({patient}) {
         return <Reports date={data.date} filePath={data.file} setFilePath={setFilePath}/>
     });
 
+    // display either all reports or display one report when view report button is clicked
     return(viewReport ?
         <div>
             <button onClick={handleBackClick}>Back</button>

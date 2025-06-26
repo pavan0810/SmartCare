@@ -43,7 +43,8 @@ export default function HomePage(props) {
                     <img src='images/logo.png' alt='SmartCare logo'/> 
                 </div>
                 <input type='text' onChange={handleChange}></input>
-                {searchBoxValue === "" ? <button disabled>Search</button> : <button onClick={search}>Search</button>}
+                {searchBoxValue === "" ? <button disabled>Search</button> : 
+                <button onClick={search}>Search</button>}
             </div>
 
             {patientElements.length > 0 ?
