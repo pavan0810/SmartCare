@@ -11,11 +11,7 @@ export default function Calendar({ user, appointmentList, updateAppointmentList 
     const navigate = useNavigate();
 
     useEffect(() => {
-        let allAppointments = user.appointments;
-        const events = allAppointments.map((appointment) => {
-            return appointment.events;
-        });
-        setAppointments(events.flat());
+        setAppointments(user.appointments);
         // eslint-disable-next-line
     }, [])
 
@@ -41,7 +37,7 @@ export default function Calendar({ user, appointmentList, updateAppointmentList 
     }
     
 
-    function bookAllAppointments(){
+    async function bookAllAppointments(){
         const priorityOrder = { H: 1, M: 2, L: 3 };
         appointmentList.sort((a, b) => priorityOrder[a.severity] - priorityOrder[b.severity]);
         let appointmentCopy = appointments;
@@ -55,10 +51,24 @@ export default function Calendar({ user, appointmentList, updateAppointmentList 
                 }
             }
         }
-        setAppointments(appointmentCopy);
-        alert("Appointments booked sucessfully");
-        updateAppointmentList("");
         // fetch request to update doctor's appointment schedule
+        console.log(user);
+        console.log(appointmentCopy);
+        const response = await fetch("http://localhost:5000/updateDoctorCalendar/doctors", {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"doctor": user, "appointments" : appointmentCopy})
+        });
+        const result = await response.json();
+        if(result.success) {
+            setAppointments(appointmentCopy);
+            alert("Appointments booked sucessfully");
+            updateAppointmentList("");
+        } else {
+            alert("Failed to book appointments")
+        }
     }
 
     function handleBackClick() {

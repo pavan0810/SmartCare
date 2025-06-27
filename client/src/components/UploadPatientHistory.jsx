@@ -26,7 +26,7 @@ export default function UploadPatientHistory({patient, updateAppointmentList}) {
     }
 
     async function bookAppointment() {
-        // get patient symptoms
+        // POST request to get patient severity
         const response = await fetch("http://localhost:5000/getPatientSeverity", {
             method: 'POST',
             headers: {
