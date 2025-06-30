@@ -70,14 +70,14 @@ app.get('/getPatientData/:collectionName/:query', async function(req, res) {
 
 app.post('/uploadFile/:collectionName', upload.single('file'), async function(req, res) {
     try {
-        let date = req.body.date;
+        let date = JSON.parse(req.body.date);
         let patientID = JSON.parse(req.body.patient).patientID;
         let filePath = `http://localhost:5000/patientFiles/${req.file.filename}`
         const result = await req.collection.insertOne(
             {"patientID" : patientID, "date": date, "file" : filePath}
         );
         console.log(result);
-        res.json({"message" : "file uploaded successfully!"})
+        res.json({"message" : "file uploaded successfully!", "filePath" : filePath})
     } catch(err) {
         console.error(err);
         res.json({"message" : "Error when uploading file!"})
@@ -110,17 +110,19 @@ app.post('/uploadPrescription/:collectionName', async function(req, res) {
 
 app.post('/getPatientSeverity', async function(req, res) {
     try {
+        // Use of wink-nlp to lemmatise notes
         const { notes } = req.body;
         console.log(notes);
         const doc = nlp.readDoc(notes);
         var notesLemma = doc.tokens().filter(t => t.out(its.type) === 'word').out(its.lemma);
         notesLemma = notesLemma.join(' ');
+        // extraction of symptoms from lemmatised notes
         var result = symptoms.map((symptom) => {
             var symptomDoc = nlp.readDoc(symptom);
             var symptomsLemma = symptomDoc.tokens().out(its.lemma).join(' ');
             return notesLemma.includes(symptomsLemma) ? 1 : 0;
         });
-
+        // request to flask API to get severity of patient
         const response = await fetch('http://localhost:5001/getPatientSeverity', {
                 method: 'POST',
                 headers: {
@@ -157,6 +159,22 @@ app.post('/signin/:collectionName', async function(req, res) {
         res.json(err);
     }
 });
+
+app.put('/updateDoctorCalendar/:collectionName', async function(req, res){
+    try{
+        const doctor = req.body.doctor;
+        const newAppointments = req.body.appointments;
+        const result = await req.collection.updateOne(
+            { doctorID: doctor.doctorID },
+            { $set: { appointments: newAppointments } }
+        );
+        console.log(result);
+        res.json({"success" : true, "message" : "Appointments booked successfully"})
+    } catch(err) {
+        console.error(err);
+        res.json(err);
+    }
+})
 
 var server = http.createServer(app);
 server.listen(5000, () => {

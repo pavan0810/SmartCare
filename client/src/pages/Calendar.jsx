@@ -52,8 +52,6 @@ export default function Calendar({ user, appointmentList, updateAppointmentList 
             }
         }
         // fetch request to update doctor's appointment schedule
-        console.log(user);
-        console.log(appointmentCopy);
         const response = await fetch("http://localhost:5000/updateDoctorCalendar/doctors", {
             method: 'PUT',
             headers: {
