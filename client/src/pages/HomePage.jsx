@@ -31,11 +31,15 @@ export default function HomePage(props) {
         navigate('/appointment')
     }
 
+    function handleSignOut() {
+        navigate('/')
+    }
+
     return(
         <>
             <header className="homePageHeader">
                 <button onClick={handleViewAppointmentClick}>View Appointments</button>
-                <button>Sign Out</button>
+                <button onClick={handleSignOut}>Sign Out</button>
             </header>
             <div className='patientSearch'>
                 <div>

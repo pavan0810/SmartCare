@@ -15,12 +15,16 @@ export default function MedicalHistoryPage(props) {
         navigate('/homePage');
     }
 
+    function handleSignOut() {
+        navigate('/')
+    }
+
     return(
         <>
             <header>
                 <button onClick={backButtonClick}>Back</button>
                 <p>SmartCare</p>
-                <button>Sign out</button>
+                <button onClick={handleSignOut}>Sign out</button>
             </header>
             <div className="medicalHistory">
                 <div className="medicalHistoryNav">
