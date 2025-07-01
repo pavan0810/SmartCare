@@ -70,8 +70,10 @@ app.get('/getPatientData/:collectionName/:query', async function(req, res) {
 
 app.post('/uploadFile/:collectionName', upload.single('file'), async function(req, res) {
     try {
-        let date = JSON.parse(req.body.date);
+        let date = req.body.date;
+        console.log(date)
         let patientID = JSON.parse(req.body.patient).patientID;
+        console.log(patientID)
         let filePath = `http://localhost:5000/patientFiles/${req.file.filename}`
         const result = await req.collection.insertOne(
             {"patientID" : patientID, "date": date, "file" : filePath}
