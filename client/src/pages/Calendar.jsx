@@ -48,8 +48,6 @@ export default function Calendar({ user, appointmentList, updateAppointmentList 
                 const today = new Date();
                 const formattedToday = today.toISOString().split('T')[0];
                 if(appointmentCopy[j].title === '' && date > formattedToday) {
-                    console.log(formattedToday);
-                    console.log(appointmentCopy[j].start.split("T"));
                     appointmentCopy[j].title = appointmentList[i].patient.name;
                     sendAppointmentEmail(appointmentList[i].patient.name, appointmentCopy[j].start, 
                         appointmentList[i].patient.email);
