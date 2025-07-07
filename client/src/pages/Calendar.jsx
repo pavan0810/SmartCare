@@ -43,7 +43,13 @@ export default function Calendar({ user, appointmentList, updateAppointmentList 
         let appointmentCopy = appointments;
         for(let i = 0; i < appointmentList.length;i++) {
             for(let j = 0; j < appointmentCopy.length; j++) {
-                if(appointmentCopy[j].title === '') {
+                const [ date, time ] = appointmentCopy[j].start.split("T");
+                console.log(time);
+                const today = new Date();
+                const formattedToday = today.toISOString().split('T')[0];
+                if(appointmentCopy[j].title === '' && date > formattedToday) {
+                    console.log(formattedToday);
+                    console.log(appointmentCopy[j].start.split("T"));
                     appointmentCopy[j].title = appointmentList[i].patient.name;
                     sendAppointmentEmail(appointmentList[i].patient.name, appointmentCopy[j].start, 
                         appointmentList[i].patient.email);
